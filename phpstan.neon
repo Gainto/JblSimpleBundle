@@ -1,0 +1,37 @@
+parameters:
+    level: 0
+
+    paths:
+        - %currentWorkingDirectory%
+
+    excludePaths:
+        - '%currentWorkingDirectory%/**/vendor/*'
+        - '%currentWorkingDirectory%/**/test/*'
+        - '%currentWorkingDirectory%/**/tests/*'
+
+    ignoreErrors:
+        - '#apcu_#'
+        - '#ioncube_#'
+        - '#opcache_#'
+        - '#imagettftext#'
+        - '#class Redis#'
+        - '#Constant STARTTIME#'
+
+    bootstrapFiles:
+        - ../../../vendor/autoload.php
+
+    reportUnmatchedIgnoredErrors: false
+    tipsOfTheDay: false
+    checkMissingIterableValueType: false
+    checkMissingCallableSignature: true
+    polluteScopeWithLoopInitialAssignments: false
+    polluteScopeWithAlwaysIterableForeach: false
+    checkAlwaysTrueCheckTypeFunctionCall: true
+    checkAlwaysTrueInstanceof: true
+    checkAlwaysTrueStrictComparison: true
+    checkExplicitMixedMissingReturn: true
+    checkFunctionNameCase: true
+    checkInternalClassCaseSensitivity: true
+    reportMaybesInMethodSignatures: true
+    reportStaticMethodSignatures: true
+    reportMaybesInPropertyPhpDocTypes: true

@@ -1,0 +1,39 @@
+{% sw_extends '@Storefront/storefront/component/product/card/box-standard.html.twig' %}
+
+ {% block component_product_box_info %}
+     <div class="product-info px-2 pb-2">
+
+         {% block component_product_box_quantity %}
+             <div class="product-bundle-box-quantity rounded-1 bg-primary text-white p-2" style="position: absolute;top: 5%;left: 5%;">
+             {{ quantity }}x
+             </div>
+         {% endblock %}
+
+         {% block component_product_box_name %}
+             <a href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}"
+                class="product-name"
+                title="{{ name }}">
+                 {{ name }}
+             </a>
+         {% endblock %}
+
+         {% block component_product_box_variant_characteristics %}
+             <div class="bundle-product-variant-characteristics">
+                 <div class="bundle-product-variant-characteristics-text text-small">
+                     {% if not displayParent %}
+                         {% for variation in product.variation %}
+                             {{ variation.group }}:
+                             <span class="product-variant-characteristics-option fw-bold">
+                                {{ variation.option }}
+                            </span>
+
+                             {% if product.variation|last != variation %}
+                                 {{ " | " }}
+                             {% endif %}
+                         {% endfor %}
+                     {% endif %}
+                 </div>
+             </div>
+         {% endblock %}
+     </div>
+ {% endblock %}

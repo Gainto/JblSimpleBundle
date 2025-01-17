@@ -1,0 +1,103 @@
+<div class="sw-product-detail-bundle">
+<template v-if="isLoading">
+    <sw-skeleton variant="detail-bold" />
+    <sw-skeleton />
+</template>
+
+<sw-card title="Produkte dem Bundle hinzufügen" v-else>
+
+    <sw-entity-single-select
+            :isLoading="isLoading"
+            :displayVariants="true"
+            :criteria="productCriteria"
+            :context="contextWithInheritance"
+            entity="product"
+            labelProperty="name"
+            placeholder="Produkt auswählen"
+            label="Produkt zum Bundle hinzufügen"
+            v-model="selectedProduct"
+            @change="onAddProduct">
+
+        <template #selection-label-property="{ item }">
+            <slot
+                    name="selection-label-property"
+                    v-bind="{ item }"
+            >
+                    <sw-product-variant-info :variations="item.variation">
+                        {{ item.translated.name || item.name }}
+                    </sw-product-variant-info>
+            </slot>
+        </template>
+
+        <template #result-item="{ item, index }">
+            <slot
+                name="result-item"
+                v-bind="{ item, index }"
+            >
+                <sw-select-result
+                        v-bind="{ item, index }"
+                >
+                    <sw-product-variant-info :variations="item.variation">
+                        {{ item.translated.name || item.name }}
+                    </sw-product-variant-info>
+                </sw-select-result>
+            </slot>
+        </template>
+    </sw-entity-single-select>
+
+    <sw-data-grid  v-if="product.bundleProducts.length > 0"
+                   :full-page="false"
+                   :dataSource="product.bundleProducts"
+                   :columns="bundleProductColumns"
+                   :showSelection="false"
+                   :isLoading="isLoading"
+                   :compactMode="false"
+    >
+
+        <template #column-bundleProduct.cover="{ item }">
+            <sw-media-preview-v2 :source="item.bundleProduct.cover ? item.bundleProduct.cover.media : null" />
+        </template>
+
+        <template #column-bundleProduct.name="{ item }">
+            <sw-product-variant-info :variations="item.bundleProduct.variation">
+                {{ item.bundleProduct.translated.name || item.bundleProduct.name }}
+            </sw-product-variant-info>
+        </template>
+
+        <template #column-quantity="{ item }">
+            <sw-number-field
+                    v-model="item.quantity"
+                    @change="syncBundleProducts"
+                    numberType="int"
+                    :min=1
+            ></sw-number-field>
+        </template>
+
+        <template #column-active="{ item }">
+            <sw-label v-if="item.active" appearance="pill" variant="success">Aktiv</sw-label>
+            <sw-label v-else appearance="pill" variant="warning">Inaktiv</sw-label>
+        </template>
+
+        <template #actions="{ item, itemIndex }">
+
+            <sw-context-menu-item class="sw-product-detail-bundle__grid-action" @click.prevent="onDeleteBundleProduct(item, itemIndex)" variant="danger">
+                Löschen
+            </sw-context-menu-item>
+
+            <sw-context-menu-item v-if="item.active" class="sw-product-detail-bundle__grid-action" @click.prevent="onDisableBundleProduct(item, itemIndex)">
+                Deaktivieren
+            </sw-context-menu-item>
+            <sw-context-menu-item v-else class="sw-product-detail-bundle__grid-action" @click.prevent="onEnableBundleProduct(item, itemIndex)">
+                Aktivieren
+            </sw-context-menu-item>
+        </template>
+
+    </sw-data-grid>
+
+    <sw-empty-state v-if="product.bundleProducts.length == 0" title="Noch keine Bundle Produkte zugeordnet" :absolute="false">
+        <template #icon>
+            <img :src="'/administration/static/img/empty-states/products-empty-state.svg' | asset">
+        </template>
+    </sw-empty-state>
+</sw-card>
+</div>

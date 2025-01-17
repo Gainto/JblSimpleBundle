@@ -1,0 +1,54 @@
+{
+  "name": "jbl/simple-bundle-shopware6",
+  "description": "Simple Plug-In which allows to sell products as a bundle",
+  "type": "shopware-platform-plugin",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Jeffry Block",
+      "homepage": "https://www.jeffblock.de"
+    }
+  ],
+  "require": {
+    "shopware/core": "~6.5.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "~3.0",
+    "phpstan/phpstan": "^1.10"
+  },
+  "scripts": {
+    "cs-fixer": "php-cs-fixer fix",
+    "phpstan": "phpstan analyse"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "JblSimpleBundle\\": "src/"
+    }
+  },
+  "extra": {
+    "shopware-plugin-class": "JblSimpleBundle\\JblSimpleBundle",
+    "copyright": "(c) by Jeffry Block",
+    "label": {
+      "de-DE": "Produkt Bundles",
+      "en-GB": "Product Bundles"
+    },
+    "description": {
+      "de-DE": "Einfaches Plug-In welches es ermöglichst, Produkte im Bundle zu verkaufen",
+      "en-GB": "Simple Plug-In which allows to sell products as a bundle"
+    },
+    "manufacturerLink": {
+      "de-DE": "https://github.com/gainto",
+      "en-GB": "https://github.com/gainto"
+    },
+    "supportLink": {
+      "de-DE": "https://github.com/gainto",
+      "en-GB": "https://github.com/gainto"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "symfony/runtime": true
+    }
+  }
+}

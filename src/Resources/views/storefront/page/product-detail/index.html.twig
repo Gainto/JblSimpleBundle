@@ -1,0 +1,24 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/index.html.twig' %}
+
+{% block page_product_detail_main %}
+    {{ parent() }}
+
+    {% set bundleProducts = page.product.getExtension("bundleProducts") %}
+    {% if bundleProducts.count > 0 %}
+        <div class="row product-detail-bundle mb-5">
+            <h2>Dieses Bundle beinhaltet</h2>
+            <div class="row">
+                {% for bundleProduct in bundleProducts %}
+                <div class="col-12 col-md-6 col-lg-3 mt-3">
+                    {% sw_include '@Storefront/storefront/component/product/card/box.html.twig' with {
+                        'layout': 'bundle-product',
+                        'product': bundleProduct.bundleProduct,
+                        'quantity': bundleProduct.quantity,
+                        'categoryCardClass' : 'bg-white'
+                    } %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

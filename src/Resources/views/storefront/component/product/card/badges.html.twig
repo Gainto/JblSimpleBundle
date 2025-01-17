@@ -1,0 +1,13 @@
+{% sw_extends '@Storefront/storefront/component/product/card/badges.html.twig' %}
+
+{% block component_product_badges_new %}
+    {{ parent() }}
+
+    {% block component_product_badges_bundle %}
+        {% if config('JblSimpleBundle.config.bundleBadeInListing') and product.getExtension("bundleProducts").count > 0 %}
+        <div class="badge bg-primary badge-bundle">
+            <span>BUNDLE</span>
+        </div>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

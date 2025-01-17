@@ -1,0 +1,7 @@
+{% block sw_product_detail_content_tabs_reviews %}
+    {% parent %}
+
+    <sw-tabs-item :route="{ name: 'sw.product.detail.bundle', params: { id: $route.params.id } }" title="Bundle">
+        Bundle
+    </sw-tabs-item>
+{% endblock %}
